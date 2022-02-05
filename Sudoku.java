@@ -30,5 +30,14 @@ public class Sudoku{
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    public void solve(){
+        while(emptyCell()){
+            int[] coord = placeNumberInEmptyCell();
+            if(conflict(coord[0], coord[1])){
+                board[coord[0]][coord[1]] = 0;
+            }
+        }
     }    
 }
