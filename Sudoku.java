@@ -18,4 +18,17 @@ public class Sudoku{
             }
         }
     }
+    
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\n");
+        for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board[i].length; j++){
+                stringBuilder.append(board[i][j]);
+                stringBuilder.append(" ");
+            }
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
+    }    
 }
