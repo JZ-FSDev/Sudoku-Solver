@@ -39,5 +39,34 @@ public class Sudoku{
                 board[coord[0]][coord[1]] = 0;
             }
         }
+    }
+    
+    public boolean conflict(int x, int y){
+        boolean conflict = false;
+        int num = board[x][y];
+        for(int i = 0; i < board.length && !conflict; i++){
+            if(board[i][y] == num && i != x){
+                conflict = true;
+            }
+        }
+        for(int j = 0; j < board[0].length && !conflict; j++){
+            if(board[x][j] == num && j != y){
+                conflict = true;
+            }
+        }
+        int n = (int)Math.sqrt(board.length);
+        int partitionTopX = x / n * n;
+        int partitionTopY = y / n * n;
+        boolean[] cell = new boolean[board.length];
+        for(int i = partitionTopX; i < partitionTopX + n && !conflict; i++){
+            for(int j = partitionTopY; j < partitionTopY + n && !conflict; j++){
+                if(board[i][j] != 0 && cell[board[i][j]-1] == false){
+                    cell[board[i][j]-1] = true;
+                }else if(board[i][j] != 0 && cell[board[i][j]-1] == true){
+                    conflict = true;
+                }
+            }
+        }
+        return conflict;
     }    
 }
