@@ -84,5 +84,17 @@ public class Sudoku{
             }
         }
         return coordinate;
+    }
+    
+    public boolean emptyCell(){
+        boolean empty = false;
+        for(int i = 0; i < board.length && !empty; i++){
+            for(int j = 0; j < board[i].length && !empty; j++){
+                if(board[i][j] == 0){
+                    empty = true;
+                }
+            }
+        }
+        return empty;
     }    
 }
