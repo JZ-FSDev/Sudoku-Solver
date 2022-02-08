@@ -1,2 +1,2 @@
 # Sudoku-Solver
-Generates any n^2 by n^2 Sudoku puzzle and produces solves a solution for the puzzle.
+Solves any n^2 by n^2 Sudoku puzzle and produces a solution for the puzzle.
