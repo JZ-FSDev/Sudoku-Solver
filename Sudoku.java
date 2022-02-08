@@ -69,4 +69,20 @@ public class Sudoku{
         }
         return conflict;
     }    
+    
+    public int[] placeNumberInEmptyCell(){
+        int[] coordinate = new int[2];
+        boolean placed = false;
+        for(int i = 0; i < board.length && !placed; i++){
+            for(int j = 0; j < board[i].length && !placed; j++){
+                if(board[i][j] == 0){
+                    board[i][j] = (int)(Math.random()*board.length) + 1;
+                    coordinate[0] = i;
+                    coordinate[1] = j;
+                    placed = true;
+                }
+            }
+        }
+        return coordinate;
+    }    
 }
