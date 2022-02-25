@@ -11,6 +11,12 @@ import java.util.Scanner;
 public class Sudoku{
     private int[][] board;
     
+    /**
+     * Constructs a new Sudoku board based on the board defined by user input
+     * in the form 2 - 7 - - 3 - 8 - - 5 - - 9 - - - 6 - - - - - - - - 9 - 4 - 
+     * 2 - - - - - - - 8 5 - 1 6 - - - - - - - 4 - 3 - 4 - - - - - - - - 5 - - 
+     * - 7 - - 2 - - 3 - 9 - - 4 - 5 , where dashes represent an empty cell.
+     */
     public Sudoku(){
         Scanner scan = new Scanner(System.in);
         String[] input = scan.nextLine().split(" ");
@@ -46,46 +52,48 @@ public class Sudoku{
     }
 
     /**
-     * Solves this board.
+     * Solves this board by random brute force.
      */
     public void solve(){
-        while(emptyCell()){
+        while(hasEmptyCell()){
             int[] coord = placeNumberInEmptyCell();
-            if(conflict(coord[0], coord[1])){
+            if(conflictAtCell(coord[0], coord[1])){
                 board[coord[0]][coord[1]] = 0;
             }
         }
     }
 
     /**
+     * Returns true if there is a conflict at the cell at the specified coordinates.
+     * A conflict is defined as the presence of a repeated number in the n x n cell,
+     * row, or column.
      * 
-     * 
-     * @param x
-     * @param y
-     * @return
+     * @param row The row coordinate of the cell to check for conflict.
+     * @param col The column coordinate of the cell to check for conflict.
+     * @return Returns true if there is a conflict at the cell at the specified coordinates.
      */
-    public boolean conflict(int x, int y){
+    public boolean conflictAtCell(int row, int col){
         boolean conflict = false;
-        int num = board[x][y];
+        int num = board[row][col];
         for(int i = 0; i < board.length && !conflict; i++){
-            if(board[i][y] == num && i != x){
+            if(board[i][col] == num && i != row){
                 conflict = true;
             }
         }
         for(int j = 0; j < board[0].length && !conflict; j++){
-            if(board[x][j] == num && j != y){
+            if(board[row][j] == num && j != col){
                 conflict = true;
             }
         }
         int n = (int)Math.sqrt(board.length);
-        int partitionTopX = x / n * n;
-        int partitionTopY = y / n * n;
+        int partitionTopX = row / n * n;
+        int partitionTopY = col / n * n;
         boolean[] cell = new boolean[board.length];
         for(int i = partitionTopX; i < partitionTopX + n && !conflict; i++){
             for(int j = partitionTopY; j < partitionTopY + n && !conflict; j++){
                 if(board[i][j] != 0 && cell[board[i][j]-1] == false){
                     cell[board[i][j]-1] = true;
-                }else if(board[i][j] != 0 && cell[board[i][j]-1] == true){
+                }else if(board[i][j] != 0 && cell[board[i][j] - 1] == true){
                     conflict = true;
                 }
             }
@@ -93,6 +101,13 @@ public class Sudoku{
         return conflict;
     }
     
+    /**
+     * Places a random number from 1 to n*n in an empty cell and returns the coordinate
+     * of the cell that had an number placed as an array with the row coordinate as
+     * the element at index 0 and the column element as index 1.
+     * 
+     * @return The array that contains the coordinates of the cell that had a number placed.
+     */
     public int[] placeNumberInEmptyCell(){
         int[] coordinate = new int[2];
         boolean placed = false;
@@ -109,7 +124,12 @@ public class Sudoku{
         return coordinate;
     }
 
-    public boolean emptyCell(){
+    /**
+     * Returns true if this sudoku board has an empty cell.
+     * 
+     * @return Returns true if this sudoku board has an empty cell.
+     */
+    public boolean hasEmptyCell(){
         boolean empty = false;
         for(int i = 0; i < board.length && !empty; i++){
             for(int j = 0; j < board[i].length && !empty; j++){
@@ -120,5 +140,4 @@ public class Sudoku{
         }
         return empty;
     }
-
 }
