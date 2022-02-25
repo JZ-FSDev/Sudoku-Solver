@@ -1,8 +1,16 @@
 import java.util.Scanner;
 
+/**
+ * Defines a sudoku solver which accepts sudoku board by user input and
+ * solves it to produce a board that resembles a solution.
+ *
+ * @author JZ-FSDev
+ * @since 17.0.1
+ * @version 0.0.1
+ */
 public class Sudoku{
     private int[][] board;
-  
+    
     public Sudoku(){
         Scanner scan = new Scanner(System.in);
         String[] input = scan.nextLine().split(" ");
@@ -18,7 +26,12 @@ public class Sudoku{
             }
         }
     }
-    
+
+    /**
+     * Returns this sudoku board as a String.
+     * 
+     * @return Returns this sudoku board as a String.
+     */
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\n");
@@ -32,6 +45,9 @@ public class Sudoku{
         return stringBuilder.toString();
     }
 
+    /**
+     * Solves this board.
+     */
     public void solve(){
         while(emptyCell()){
             int[] coord = placeNumberInEmptyCell();
@@ -40,7 +56,14 @@ public class Sudoku{
             }
         }
     }
-    
+
+    /**
+     * 
+     * 
+     * @param x
+     * @param y
+     * @return
+     */
     public boolean conflict(int x, int y){
         boolean conflict = false;
         int num = board[x][y];
@@ -68,7 +91,7 @@ public class Sudoku{
             }
         }
         return conflict;
-    }    
+    }
     
     public int[] placeNumberInEmptyCell(){
         int[] coordinate = new int[2];
@@ -85,7 +108,7 @@ public class Sudoku{
         }
         return coordinate;
     }
-    
+
     public boolean emptyCell(){
         boolean empty = false;
         for(int i = 0; i < board.length && !empty; i++){
@@ -96,5 +119,6 @@ public class Sudoku{
             }
         }
         return empty;
-    }    
+    }
+
 }
