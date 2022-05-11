@@ -10,6 +10,26 @@ import java.util.Scanner;
  */
 public class Sudoku{
     private int[][] board;
+
+    public static void main(String[] args) {
+        Sudoku s = new Sudoku();
+        System.out.println(s);
+        // int[] coord = s.placeNumberInEmptyCell();
+        // coord = s.placeNumberInEmptyCell();
+        // coord = s.placeNumberInEmptyCell();
+        // coord = s.placeNumberInEmptyCell();
+        // coord = s.placeNumberInEmptyCell();
+        // coord = s.placeNumberInEmptyCell();
+        // coord = s.placeNumberInEmptyCell();
+        // coord = s.placeNumberInEmptyCell();
+        // coord = s.placeNumberInEmptyCell();
+        // coord = s.placeNumberInEmptyCell();
+        s.solveSudoku(s.board);
+        // System.out.println("Empty cell: " + s.emptyCell());
+        // System.out.println("Conflict: " + s.conflict(coord[0], coord[1]));
+        System.out.println(s);
+        System.out.println(s.valid(1, 0, 1, s.board));
+    }
     
     /**
      * Constructs a new Sudoku board based on the board defined by user input
@@ -139,5 +159,22 @@ public class Sudoku{
             }
         }
         return empty;
+    }
+    
+    private boolean valid(int item, int row, int col, int[][] board){
+        boolean valid = true;
+        for(int i = 0; i < 9 && valid; i++){
+            if(board[i][col] == item || board[row][i] == item){
+                valid = false;
+            }
+        }
+        for(int r = (row/3)*3; r < (row/3)*3 + 3 && valid; r++){
+            for(int c = (col/3)*3; c < (col/3)*3 + 3 && valid; c++){
+                if(board[r][c] == item){
+                    valid = false;
+                }
+            }
+        }
+        return valid;
     }
 }
