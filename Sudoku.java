@@ -166,6 +166,27 @@ public class Sudoku{
         mySolve(board);
     }
     
+    private boolean mySolve(int[][] board){
+        boolean keepGoing = true, validPick = false;
+        for(int r = 0; r < 9 && keepGoing; r++){
+            for(int c = 0; c < 9 && keepGoing; c++){
+                if(board[r][c] == '.'){
+                    for(int i = 1; i <= 9 && !validPick; i++){
+                        if(valid(i, r, c, board)){
+                            board[r][c] = i;
+                            validPick = mySolve(board);
+                            if(!validPick){
+                                board[r][c] = '.';
+                            }
+                        }
+                    }
+                    keepGoing = validPick;   
+                }
+            }
+        }
+        return keepGoing;
+    }
+    
     private boolean valid(int item, int row, int col, int[][] board){
         boolean valid = true;
         for(int i = 0; i < 9 && valid; i++){
