@@ -160,6 +160,11 @@ public class Sudoku{
         }
         return empty;
     }
+
+
+    public void solveSudoku(int[][] board) {
+        mySolve(board);
+    }
     
     private boolean valid(int item, int row, int col, int[][] board){
         boolean valid = true;
