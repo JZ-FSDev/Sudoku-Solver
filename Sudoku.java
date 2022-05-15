@@ -150,7 +150,9 @@ public class Sudoku{
 
 
     public void solveSudoku(int[][] board) {
-        
+        boolean status = mySolve(board);
+        System.out.println(this);
+        System.out.println("Solution generated " + ( status ? "successfully":"unsuccessfully" ))  ;
     }
     
     private boolean mySolve(int[][] board){
