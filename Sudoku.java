@@ -12,23 +12,9 @@ public class Sudoku{
     private int[][] board;
 
     public static void main(String[] args) {
+        System.out.println("Please enter a valid n*n board in the form: 4 - 1 - - 2 - - 2 - - 1 - 1 - -");
         Sudoku s = new Sudoku();
-        System.out.println(s);
-        // int[] coord = s.placeNumberInEmptyCell();
-        // coord = s.placeNumberInEmptyCell();
-        // coord = s.placeNumberInEmptyCell();
-        // coord = s.placeNumberInEmptyCell();
-        // coord = s.placeNumberInEmptyCell();
-        // coord = s.placeNumberInEmptyCell();
-        // coord = s.placeNumberInEmptyCell();
-        // coord = s.placeNumberInEmptyCell();
-        // coord = s.placeNumberInEmptyCell();
-        // coord = s.placeNumberInEmptyCell();
         s.solveSudoku(s.board);
-        // System.out.println("Empty cell: " + s.emptyCell());
-        // System.out.println("Conflict: " + s.conflict(coord[0], coord[1]));
-        System.out.println(s);
-        System.out.println(s.valid(1, 0, 1, s.board));
     }
     
     /**
@@ -51,6 +37,7 @@ public class Sudoku{
                 }
             }
         }
+        scan.close();
     }
 
     /**
@@ -163,20 +150,20 @@ public class Sudoku{
 
 
     public void solveSudoku(int[][] board) {
-        mySolve(board);
+        
     }
     
     private boolean mySolve(int[][] board){
         boolean keepGoing = true, validPick = false;
-        for(int r = 0; r < 9 && keepGoing; r++){
-            for(int c = 0; c < 9 && keepGoing; c++){
-                if(board[r][c] == '.'){
-                    for(int i = 1; i <= 9 && !validPick; i++){
+        for(int r = 0; r < board.length && keepGoing; r++){
+            for(int c = 0; c < board[r].length && keepGoing; c++){
+                if(board[r][c] == 0){
+                    for(int i = 1; i <= board.length && !validPick; i++){
                         if(valid(i, r, c, board)){
                             board[r][c] = i;
                             validPick = mySolve(board);
                             if(!validPick){
-                                board[r][c] = '.';
+                                board[r][c] = 0;
                             }
                         }
                     }
@@ -189,13 +176,14 @@ public class Sudoku{
     
     private boolean valid(int item, int row, int col, int[][] board){
         boolean valid = true;
-        for(int i = 0; i < 9 && valid; i++){
+        for(int i = 0; i < board.length && valid; i++){
             if(board[i][col] == item || board[row][i] == item){
                 valid = false;
             }
         }
-        for(int r = (row/3)*3; r < (row/3)*3 + 3 && valid; r++){
-            for(int c = (col/3)*3; c < (col/3)*3 + 3 && valid; c++){
+        int n = (int)Math.sqrt(board.length);
+        for(int r = (row/n)*n; r < (row/n)*n + n && valid; r++){
+            for(int c = (col/n)*n; c < (col/n)*n + n && valid; c++){
                 if(board[r][c] == item){
                     valid = false;
                 }
