@@ -155,6 +155,13 @@ public class Sudoku{
         System.out.println("Solution generated " + ( status ? "successfully":"unsuccessfully" ))  ;
     }
     
+    /**
+     * Solves the given sudoku board through backtracking.  Returns true if the board
+     * has a valid solution.
+     * 
+     * @param board The sudoku board to be solved.
+     * @return True if the board has a valid solution.
+     */
     private boolean mySolve(int[][] board){
         boolean keepGoing = true, validPick = false;
         for(int r = 0; r < board.length && keepGoing; r++){
