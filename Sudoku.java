@@ -176,6 +176,15 @@ public class Sudoku{
         return keepGoing;
     }
     
+    /**
+     * Returns true if the cell is valid based on the row or col or nxn cell rules.
+     * 
+     * @param item The item of the cell to be checked.
+     * @param row The row of the cell to be checked.
+     * @param col The col of the cell to be checked.
+     * @param board The sudoku board.
+     * @return True if the cell is valid based on the row or col or nxn cell rules.
+     */
     private boolean valid(int item, int row, int col, int[][] board){
         boolean valid = true;
         for(int i = 0; i < board.length && valid; i++){
